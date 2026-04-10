@@ -2,23 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+html, body {
+  font-family: var(--font-zen-maru), system-ui, -apple-system, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  background: #FBF7EE;
+  color: #3B2B12;
 }
+
+/* Prevent iOS input zoom (must be 16px+) */
+input, select, textarea {
+  font-size: 16px !important;
+}
+
+/* Better focus indicators for accessibility */
+*:focus-visible {
+  outline: 3px solid #6B8E23;
+  outline-offset: 2px;
+}
+
+/* PWA safe area */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* スクロールバー非表示 */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 @layer utilities {
   .text-balance {

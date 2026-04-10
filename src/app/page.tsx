@@ -1,101 +1,46 @@
-import Image from "next/image";
+import Link from 'next/link';
+import FarmMap from '@/components/FarmMap';
+import { farm, beds } from '@/lib/farmData';
+
+function countCrops(): number {
+  const names = new Set<string>();
+  for (const b of beds) {
+    if (b.split) {
+      if (b.north) names.add(b.north.crop);
+      if (b.south) names.add(b.south.crop);
+    } else if (b.main) {
+      names.add(b.main.crop);
+    }
+  }
+  return names.size;
+}
 
 export default function Home() {
+  const cropCount = countCrops();
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div>
+      <header className="px-4 pt-5 pb-3 text-center">
+        <h1 className="text-2xl font-black text-[#3a6a2a]">🌱 {farm.name}</h1>
+        <p className="text-xs text-soilLight mt-1 leading-relaxed">
+          {farm.location.replace('長野県', '')} ─ 東西{farm.width_ew}m × 南北{farm.length_ns}m ─ 畝
+          {farm.beds}本 ─ {cropCount}品目
+        </p>
+        <div className="flex gap-3 justify-center mt-3">
+          <Link
+            href="/weather"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-white rounded-full border border-soil/10 text-sm font-bold text-soil hover:bg-cream active:scale-95 transition"
           >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            ⛅ 天気
+          </Link>
+          <Link
+            href="/harvest"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-white rounded-full border border-soil/10 text-sm font-bold text-soil hover:bg-cream active:scale-95 transition"
           >
-            Read our docs
-          </a>
+            🌾 収穫記録
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </header>
+      <FarmMap />
     </div>
   );
 }
