@@ -42,9 +42,9 @@ export default function ShiftPage() {
   const [showBedAssign, setShowBedAssign] = useState<string | null>(null); // memberId
 
   useEffect(() => {
-    setMembers(getMembers());
-    setShifts(getShifts());
-    setCheckins(getCheckIns());
+    getMembers().then(setMembers);
+    getShifts().then(setShifts);
+    getCheckIns().then(setCheckins);
   }, []);
 
   // --- Current month helpers ---
@@ -72,7 +72,7 @@ export default function ShiftPage() {
   }, [members, memberCheckinCounts]);
 
   // --- Member CRUD ---
-  const addMember = () => {
+  const addMember = async () => {
     if (!newName.trim()) return;
     const idx = members.length;
     const m: FarmMember = {
@@ -83,22 +83,22 @@ export default function ShiftPage() {
     };
     const next = [...members, m];
     setMembers(next);
-    saveMembers(next);
+    await saveMembers(next);
     setNewName('');
     setShowAdd(false);
   };
 
-  const removeMember = (id: string) => {
+  const removeMember = async (id: string) => {
     if (!confirm('このメンバーを削除しますか？')) return;
     const next = members.filter((m) => m.id !== id);
     const nextShifts = shifts.filter((s) => s.memberId !== id);
     setMembers(next);
     setShifts(nextShifts);
-    saveMembers(next);
-    saveShifts(nextShifts);
+    await saveMembers(next);
+    await saveShifts(nextShifts);
   };
 
-  const toggleShift = (memberId: string, weekday: Weekday) => {
+  const toggleShift = async (memberId: string, weekday: Weekday) => {
     const existing = shifts.find((s) => s.memberId === memberId && s.weekday === weekday);
     let next: ShiftSlot[];
     if (existing) {
@@ -107,7 +107,7 @@ export default function ShiftPage() {
       next = [...shifts, { id: `s-${Date.now()}-${Math.random()}`, memberId, weekday }];
     }
     setShifts(next);
-    saveShifts(next);
+    await saveShifts(next);
   };
 
   // --- Check-in with bed selection ---
@@ -117,10 +117,10 @@ export default function ShiftPage() {
     );
   };
 
-  const doCheckIn = () => {
+  const doCheckIn = async () => {
     if (!checkinMember) return;
     const d = new Date().toISOString().slice(0, 10);
-    const c = addCheckIn({
+    const c = await addCheckIn({
       memberId: checkinMember,
       date: d,
       note: checkinNote.trim() || undefined,
@@ -133,7 +133,7 @@ export default function ShiftPage() {
   };
 
   // --- Bed assignment ---
-  const toggleBedAssignment = (memberId: string, bedId: number) => {
+  const toggleBedAssignment = async (memberId: string, bedId: number) => {
     const updated = members.map((m) => {
       if (m.id !== memberId) return m;
       const current = m.assignedBedIds ?? [];
@@ -143,7 +143,7 @@ export default function ShiftPage() {
       return { ...m, assignedBedIds: next.length > 0 ? next : undefined };
     });
     setMembers(updated);
-    saveMembers(updated);
+    await saveMembers(updated);
   };
 
   // --- Derived data ---

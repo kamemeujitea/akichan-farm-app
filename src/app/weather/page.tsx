@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchWeather, generateAlerts } from '@/lib/weather';
 import { getSettings, saveSettings, getTaskCompletions } from '@/lib/storage';
 import { buildSchedule, categoryEmoji } from '@/lib/schedule';
@@ -35,28 +35,34 @@ export default function WeatherPage() {
   };
 
   useEffect(() => {
-    const s = getSettings();
-    setApiKeyInput(s.weatherApiKey ?? '');
-    load(s.weatherApiKey);
+    getSettings().then((s) => {
+      setApiKeyInput(s.weatherApiKey ?? '');
+      load(s.weatherApiKey);
+    });
   }, []);
 
-  const saveApiKey = () => {
-    saveSettings({ weatherApiKey: apiKeyInput.trim() || undefined });
+  const saveApiKey = async () => {
+    await saveSettings({ weatherApiKey: apiKeyInput.trim() || undefined });
     setShowSettings(false);
     load(apiKeyInput.trim() || undefined);
   };
 
   // 今後1週間のタスクリマインダー
-  const upcomingTasks = useMemo<ScheduleTask[]>(() => {
-    const all = buildSchedule(new Date().getFullYear());
-    const completed = new Set(getTaskCompletions().map((c) => c.taskId));
-    const today = new Date().toISOString().slice(0, 10);
-    const in7 = new Date();
-    in7.setDate(in7.getDate() + 7);
-    const limit = in7.toISOString().slice(0, 10);
-    return all
-      .filter((t) => !completed.has(t.id) && t.dueDate && t.dueDate >= today && t.dueDate <= limit)
-      .sort((a, b) => (a.dueDate ?? '').localeCompare(b.dueDate ?? ''));
+  const [upcomingTasks, setUpcomingTasks] = useState<ScheduleTask[]>([]);
+  useEffect(() => {
+    getTaskCompletions().then((completions) => {
+      const all = buildSchedule(new Date().getFullYear());
+      const completed = new Set(completions.map((c) => c.taskId));
+      const today = new Date().toISOString().slice(0, 10);
+      const in7 = new Date();
+      in7.setDate(in7.getDate() + 7);
+      const limit = in7.toISOString().slice(0, 10);
+      setUpcomingTasks(
+        all
+          .filter((t) => !completed.has(t.id) && t.dueDate && t.dueDate >= today && t.dueDate <= limit)
+          .sort((a, b) => (a.dueDate ?? '').localeCompare(b.dueDate ?? ''))
+      );
+    });
   }, []);
 
   return (

@@ -240,13 +240,14 @@ export default function CalendarView() {
 
   // Load data on mount
   useEffect(() => {
-    setUserTasks(getUserTasks());
-    const completions = getStepCompletions();
-    const map: Record<string, boolean> = {};
-    for (const key of Object.keys(completions)) {
-      map[key] = true;
-    }
-    setStepCompletions(map);
+    getUserTasks().then(setUserTasks);
+    getStepCompletions().then((completions) => {
+      const map: Record<string, boolean> = {};
+      for (const key of Object.keys(completions)) {
+        map[key] = true;
+      }
+      setStepCompletions(map);
+    });
   }, []);
 
   // Build cropStep tasks for current year
@@ -328,23 +329,23 @@ export default function CalendarView() {
   };
 
   // Toggle step completion
-  const onToggleStep = (key: string) => {
-    const nowDone = toggleStepCompletion(key);
+  const onToggleStep = async (key: string) => {
+    const nowDone = await toggleStepCompletion(key);
     setStepCompletions((prev) => ({ ...prev, [key]: nowDone }));
   };
 
   // User task CRUD
-  const onAddTask = () => {
+  const onAddTask = async () => {
     if (!newTitle.trim()) return;
-    const t = addUserTask({ date: selectedDate, title: newTitle.trim(), note: newNote.trim() || undefined });
+    const t = await addUserTask({ date: selectedDate, title: newTitle.trim(), note: newNote.trim() || undefined });
     setUserTasks([...userTasks, t]);
     setNewTitle('');
     setNewNote('');
     setShowForm(false);
   };
 
-  const onDeleteUser = (id: string) => {
-    deleteUserTask(id);
+  const onDeleteUser = async (id: string) => {
+    await deleteUserTask(id);
     setUserTasks(userTasks.filter((t) => t.id !== id));
   };
 

@@ -176,7 +176,7 @@ export default function FarmMap() {
   const [season, setSeason] = useState<Season>('spring');
 
   useEffect(() => {
-    setStatuses(getBedStatuses());
+    getBedStatuses().then(setStatuses);
   }, [selected]);
 
   return (

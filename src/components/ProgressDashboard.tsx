@@ -126,14 +126,17 @@ export default function ProgressDashboard() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setCompletions(getStepCompletions());
-    setMounted(true);
+    getStepCompletions().then((c) => {
+      setCompletions(c);
+      setMounted(true);
+    });
   }, []);
 
-  const handleToggle = useCallback((key: string) => {
-    toggleStepCompletion(key);
-    syncAllBedStatuses();
-    setCompletions(getStepCompletions());
+  const handleToggle = useCallback(async (key: string) => {
+    await toggleStepCompletion(key);
+    await syncAllBedStatuses();
+    const updated = await getStepCompletions();
+    setCompletions(updated);
   }, []);
 
   if (!mounted) {

@@ -9,13 +9,14 @@ export default function CropTimeline({ bedId }: { bedId: number }) {
   const [completed, setCompleted] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
-    const map = getStepCompletions();
-    const state: Record<string, boolean> = {};
-    steps?.forEach((_, i) => {
-      const key = `bed-${bedId}-${i}`;
-      state[key] = !!map[key];
+    getStepCompletions().then((map) => {
+      const state: Record<string, boolean> = {};
+      steps?.forEach((_, i) => {
+        const key = `bed-${bedId}-${i}`;
+        state[key] = !!map[key];
+      });
+      setCompleted(state);
     });
-    setCompleted(state);
   }, [bedId, steps]);
 
   if (!steps || steps.length === 0) {
@@ -28,9 +29,9 @@ export default function CropTimeline({ bedId }: { bedId: number }) {
 
   const doneCount = Object.values(completed).filter(Boolean).length;
 
-  const onToggle = (index: number) => {
+  const onToggle = async (index: number) => {
     const key = `bed-${bedId}-${index}`;
-    const nowDone = toggleStepCompletion(key);
+    const nowDone = await toggleStepCompletion(key);
     setCompleted((prev) => ({ ...prev, [key]: nowDone }));
   };
 

@@ -40,8 +40,8 @@ export default function BudgetPage() {
   const [expenses, setExpenses] = useState<ExpenseRecord[]>([]);
 
   useEffect(() => {
-    setIncomes(getIncomes());
-    setExpenses(getExpenses());
+    getIncomes().then(setIncomes);
+    getExpenses().then(setExpenses);
   }, []);
 
   const totalIncome = incomes.reduce((s, r) => s + r.amount, 0);
@@ -112,14 +112,14 @@ export default function BudgetPage() {
           <IncomeTab
             incomes={incomes}
             onAdd={(r) => setIncomes([...incomes, r])}
-            onDelete={(id) => { deleteIncome(id); setIncomes(incomes.filter((r) => r.id !== id)); }}
+            onDelete={async (id) => { await deleteIncome(id); setIncomes(incomes.filter((r) => r.id !== id)); }}
           />
         )}
         {tab === 'expense' && (
           <ExpenseTab
             expenses={expenses}
             onAdd={(r) => setExpenses([...expenses, r])}
-            onDelete={(id) => { deleteExpense(id); setExpenses(expenses.filter((r) => r.id !== id)); }}
+            onDelete={async (id) => { await deleteExpense(id); setExpenses(expenses.filter((r) => r.id !== id)); }}
           />
         )}
         {tab === 'estimate' && <EstimateTab />}
@@ -235,9 +235,9 @@ function IncomeTab({
   const [amount, setAmount] = useState('');
   const [note, setNote] = useState('');
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!from.trim() || !amount) return;
-    const r = addIncome({ date, from: from.trim(), amount: parseInt(amount, 10), note: note.trim() || undefined });
+    const r = await addIncome({ date, from: from.trim(), amount: parseInt(amount, 10), note: note.trim() || undefined });
     onAdd(r);
     setFrom('');
     setAmount('');
@@ -339,9 +339,9 @@ function ExpenseTab({
   const [amount, setAmount] = useState('');
   const [note, setNote] = useState('');
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!item.trim() || !amount) return;
-    const r = addExpense({ date, category, item: item.trim(), amount: parseInt(amount, 10), note: note.trim() || undefined });
+    const r = await addExpense({ date, category, item: item.trim(), amount: parseInt(amount, 10), note: note.trim() || undefined });
     onAdd(r);
     setItem('');
     setAmount('');

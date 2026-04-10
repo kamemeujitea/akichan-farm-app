@@ -114,7 +114,7 @@ export default function BedDetail({
   const [showTimeline, setShowTimeline] = useState(true);
 
   useEffect(() => {
-    setStatus(getBedStatuses()[bed.id] ?? 'none');
+    getBedStatuses().then((s) => setStatus(s[bed.id] ?? 'none'));
   }, [bed.id]);
 
   // 季節に応じた作物情報
