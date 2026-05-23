@@ -43,27 +43,56 @@ const FALLOW: CropInfo = {
 // ===========================
 // 混植畝のゾーン定義
 // ===========================
-interface BedZone {
+// type: 'mixed' → 線なし、絵文字交互で混植を表現
+// type: 'zone'  → 線で区切り、独立区画を表現
+
+interface CropEntry {
   emoji: string;
-  label: string;
+  name: string;
+}
+
+interface BedZone {
+  type: 'mixed' | 'zone';
+  crops: CropEntry[];
   bg: string;
   flex: number;
-  note?: string;
 }
+
+// ⑦ トマト＋バジル＋大葉 → 全体が混植（トマト株間にバジル・大葉を植える）
+// ⑧ 枝豆→オクラ→キュウリ→ゴーヤ → 北から順に区画分け
+// ⑩ ズッキーニ+サラダ菜+サンチュ（混植）→ 明日葉（独立区画）
 
 const ZONED_BEDS: Record<number, BedZone[]> = {
   7: [
-    { emoji: '🍅', label: 'トマト', bg: '#ffebee', flex: 4 },
-    { emoji: '🌿', label: 'バジル+大葉', bg: '#e8f5e9', flex: 1, note: '混植' },
+    {
+      type: 'mixed',
+      crops: [
+        { emoji: '🍅', name: 'トマト' },
+        { emoji: '🌿', name: 'バジル' },
+        { emoji: '🌿', name: '大葉' },
+      ],
+      bg: '#f5ece6',
+      flex: 1,
+    },
   ],
   8: [
-    { emoji: '🫛', label: '枝豆', bg: '#c8eac8', flex: 2 },
-    { emoji: '🌿', label: 'オクラ', bg: '#d4ead0', flex: 1 },
-    { emoji: '🥒', label: 'ゴーヤ+キュウリ', bg: '#dceef8', flex: 2, note: 'ネット' },
+    { type: 'zone', crops: [{ emoji: '🫛', name: '枝豆' }], bg: '#c8eac8', flex: 2 },
+    { type: 'zone', crops: [{ emoji: '🌿', name: 'オクラ' }], bg: '#d4ead0', flex: 1.5 },
+    { type: 'zone', crops: [{ emoji: '🥒', name: 'キュウリ' }], bg: '#d8edf8', flex: 1.5 },
+    { type: 'zone', crops: [{ emoji: '🫘', name: 'ゴーヤ' }], bg: '#cce4f0', flex: 1.5 },
   ],
   10: [
-    { emoji: '🥒', label: 'ズッキーニ', bg: '#e0f0c8', flex: 3, note: '葉物混植' },
-    { emoji: '🌿', label: '明日葉', bg: '#c8eac8', flex: 1 },
+    {
+      type: 'mixed',
+      crops: [
+        { emoji: '🥒', name: 'ズッキーニ' },
+        { emoji: '🥬', name: 'サラダ菜' },
+        { emoji: '🥬', name: 'サンチュ' },
+      ],
+      bg: '#e5f0d0',
+      flex: 3,
+    },
+    { type: 'zone', crops: [{ emoji: '🌿', name: '明日葉' }], bg: '#c8eac8', flex: 1 },
   ],
 };
 
@@ -235,24 +264,50 @@ function ZonedBed({
 
       {/* ゾーン */}
       {zones.map((zone, i) => (
-        <div
-          key={i}
-          className="flex flex-col items-center justify-center text-center px-0.5 min-w-0"
-          style={{
-            flex: zone.flex,
-            background: zone.bg,
-            borderTop: i > 0 ? '2px solid #8B735580' : undefined,
-          }}
-        >
-          <span className="text-sm leading-none">{zone.emoji}</span>
-          <span className="text-[8px] font-bold leading-tight mt-0.5 [writing-mode:vertical-rl] text-[#3B2B12]">
-            {zone.label}
-          </span>
-          {zone.note && (
-            <span className="text-[6px] text-[#8B7355] leading-none mt-0.5">
-              {zone.note}
-            </span>
+        <div key={i} style={{ flex: zone.flex, display: 'flex', flexDirection: 'column' }}>
+          {/* 区画分けの場合のみ上線 */}
+          {i > 0 && zone.type === 'zone' && (
+            <div className="border-t-2 border-[#8B7355]" />
           )}
+          {/* 混植ゾーンの前に区画ゾーンがある場合も線 */}
+          {i > 0 && zone.type === 'mixed' && zones[i - 1]?.type === 'zone' && (
+            <div className="border-t-2 border-[#8B7355]" />
+          )}
+
+          <div
+            className="flex-1 flex flex-col items-center justify-center text-center px-0.5 min-w-0"
+            style={{ background: zone.bg }}
+          >
+            {zone.type === 'mixed' ? (
+              /* 混植: 絵文字を交互に並べて混ざっていることを表現 */
+              <>
+                <div className="flex flex-col items-center gap-0">
+                  {zone.crops.map((c, j) => (
+                    <span key={j} className="text-xs leading-tight">{c.emoji}</span>
+                  ))}
+                  {/* 混ざりを示す繰り返し */}
+                  {zone.crops.slice(0, 2).map((c, j) => (
+                    <span key={`r${j}`} className="text-xs leading-tight">{c.emoji}</span>
+                  ))}
+                </div>
+                <div className="flex flex-col items-center mt-0.5">
+                  {zone.crops.map((c, j) => (
+                    <span key={j} className="text-[7px] font-bold leading-tight text-[#3B2B12] [writing-mode:vertical-rl]">
+                      {c.name}
+                    </span>
+                  ))}
+                </div>
+              </>
+            ) : (
+              /* 区画分け: 各作物を単独表示 */
+              <>
+                <span className="text-sm leading-none">{zone.crops[0]?.emoji}</span>
+                <span className="text-[8px] font-bold leading-tight mt-0.5 [writing-mode:vertical-rl] text-[#3B2B12]">
+                  {zone.crops[0]?.name}
+                </span>
+              </>
+            )}
+          </div>
         </div>
       ))}
     </button>
