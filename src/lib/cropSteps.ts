@@ -151,6 +151,7 @@ export const cropStepsByBed: Record<number, CropStep[]> = {
   ],
   // ⑪ ネギ
   11: [
+    { month: '5月', category: 'soil', title: '空き畝（6月ネギ定植まで待機）', detail: '現在空き。溝掘り・元肥の準備を進める。' },
     { month: '4月上旬', category: 'soil', title: '元肥すき込み＋溝掘り', detail: '深さ20-30cmの溝を掘る。' },
     { month: '6月上旬', category: 'plant', title: '干しネギ苗植え付け', detail: '80本束。本畝40-50本 + 他畝に30本分配。溝底に立てかけ。' },
     { month: '7月', category: 'fertilize', title: '追肥＋軽く土寄せ', detail: '根付いたら化成肥料。溝の壁を少し崩す。' },
@@ -161,8 +162,9 @@ export const cropStepsByBed: Record<number, CropStep[]> = {
     { month: '10-11月', category: 'hill', title: '土寄せ（4回目・最終）', detail: '白い部分30cm以上が目標。' },
     { month: '11月〜翌2月', category: 'harvest', title: '収穫', detail: '霜で甘みが増す。必要な分だけ掘り出す。' },
   ],
-  // ⑫ 予備→秋タマネギ
+  // ⑫ 予備（秋タマネギ用）
   12: [
+    { month: '5月', category: 'soil', title: '現在空き（秋タマネギ用に確保）', detail: '10-11月までは予備畝。緑肥や短期葉物の栽培も可能。' },
     { month: '9月', category: 'soil', title: '畝準備・元肥', detail: '鶏糞＋化成5-5-7。苦土石灰不要（pH7）。' },
     { month: '10月', category: 'soil', title: '穴あきマルチ敷設', detail: 'タマネギ用の穴あきマルチ。' },
     { month: '10-11月', category: 'plant', title: 'タマネギ苗200本定植', detail: 'O.K.黄・ネオアース等。深植え注意。' },
