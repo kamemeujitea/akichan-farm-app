@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import FarmMap from '@/components/FarmMap';
-import PlantingGuide from '@/components/PlantingGuide';
 import { farm, beds } from '@/lib/farmData';
 
 function countCrops(): number {
@@ -42,28 +41,6 @@ export default function Home() {
         </div>
       </header>
       <FarmMap />
-
-      {/* 混植畝の植え方ガイド */}
-      <div className="px-3 mt-6 pb-6">
-        <h2 className="text-lg font-black text-[#3a6a2a] mb-4 flex items-center gap-2">
-          🗺️ 植え方ガイド
-        </h2>
-
-        <div className="space-y-6">
-          <div>
-            <h3 className="text-sm font-bold text-soil mb-2">⑦ トマト＋バジル＋大葉</h3>
-            <PlantingGuide bedId={7} />
-          </div>
-          <div>
-            <h3 className="text-sm font-bold text-soil mb-2">⑧ 枝豆＋オクラ＋ゴーヤ＋キュウリ</h3>
-            <PlantingGuide bedId={8} />
-          </div>
-          <div>
-            <h3 className="text-sm font-bold text-soil mb-2">⑩ ズッキーニ＋葉物＋明日葉</h3>
-            <PlantingGuide bedId={10} />
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

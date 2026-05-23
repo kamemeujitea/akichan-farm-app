@@ -28,13 +28,8 @@ function getBedCrops(bed: Bed, season: Season): {
   if (season === 'spring') {
     return { isSplit: bed.split, north: bed.north, south: bed.south, main: bed.main };
   }
-  // 秋冬: autumnXxx があればそちら、なければ undefined(休閑)
   if (bed.split) {
-    return {
-      isSplit: true,
-      north: bed.autumnNorth,
-      south: bed.autumnSouth,
-    };
+    return { isSplit: true, north: bed.autumnNorth, south: bed.autumnSouth };
   }
   return { isSplit: false, main: bed.autumnMain };
 }
@@ -45,6 +40,36 @@ const FALLOW: CropInfo = {
   category: 'fallow',
 };
 
+// ===========================
+// 混植畝のゾーン定義
+// ===========================
+interface BedZone {
+  emoji: string;
+  label: string;
+  bg: string;
+  flex: number;
+  note?: string;
+}
+
+const ZONED_BEDS: Record<number, BedZone[]> = {
+  7: [
+    { emoji: '🍅', label: 'トマト', bg: '#ffebee', flex: 4 },
+    { emoji: '🌿', label: 'バジル+大葉', bg: '#e8f5e9', flex: 1, note: '混植' },
+  ],
+  8: [
+    { emoji: '🫛', label: '枝豆', bg: '#c8eac8', flex: 2 },
+    { emoji: '🌿', label: 'オクラ', bg: '#d4ead0', flex: 1 },
+    { emoji: '🥒', label: 'ゴーヤ+キュウリ', bg: '#dceef8', flex: 2, note: 'ネット' },
+  ],
+  10: [
+    { emoji: '🥒', label: 'ズッキーニ', bg: '#e0f0c8', flex: 3, note: '葉物混植' },
+    { emoji: '🌿', label: '明日葉', bg: '#c8eac8', flex: 1 },
+  ],
+};
+
+// ===========================
+// 通常の1作物畝
+// ===========================
 function FullBed({
   bed,
   info,
@@ -91,6 +116,9 @@ function FullBed({
   );
 }
 
+// ===========================
+// 分割畝（北/南）のセル
+// ===========================
 function HalfCell({
   info,
   label,
@@ -131,6 +159,9 @@ function HalfCell({
   );
 }
 
+// ===========================
+// 分割畝（北/南）
+// ===========================
 function SplitBed({
   bed,
   northInfo,
@@ -167,6 +198,64 @@ function SplitBed({
         <span className="absolute top-0 right-0 text-[10px]">{statusDot(status)}</span>
       )}
     </div>
+  );
+}
+
+// ===========================
+// ゾーン分け畝（混植・区画分け）
+// ===========================
+function ZonedBed({
+  bed,
+  zones,
+  status,
+  selected,
+  onClick,
+}: {
+  bed: Bed;
+  zones: BedZone[];
+  status: BedStatus;
+  selected: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`relative w-full h-full min-w-0 rounded-sm border overflow-hidden flex flex-col active:scale-[0.97] transition ${
+        selected ? 'ring-2 ring-red-500' : ''
+      }`}
+      style={{ borderColor: selected ? '#e04040' : '#baa870', borderWidth: 1.5 }}
+    >
+      {/* 畝番号 */}
+      <span className="absolute top-0 left-0.5 text-[8px] font-bold text-[#a09060] z-10">
+        {bed.label}
+      </span>
+      {status !== 'none' && (
+        <span className="absolute top-0 right-0 text-[10px] z-10">{statusDot(status)}</span>
+      )}
+
+      {/* ゾーン */}
+      {zones.map((zone, i) => (
+        <div
+          key={i}
+          className="flex flex-col items-center justify-center text-center px-0.5 min-w-0"
+          style={{
+            flex: zone.flex,
+            background: zone.bg,
+            borderTop: i > 0 ? '2px solid #8B735580' : undefined,
+          }}
+        >
+          <span className="text-sm leading-none">{zone.emoji}</span>
+          <span className="text-[8px] font-bold leading-tight mt-0.5 [writing-mode:vertical-rl] text-[#3B2B12]">
+            {zone.label}
+          </span>
+          {zone.note && (
+            <span className="text-[6px] text-[#8B7355] leading-none mt-0.5">
+              {zone.note}
+            </span>
+          )}
+        </div>
+      ))}
+    </button>
   );
 }
 
@@ -234,6 +323,21 @@ export default function FarmMap() {
               const status = statuses[bed.id] ?? 'none';
               const isSelected = selected?.id === bed.id;
               const crops = getBedCrops(bed, season);
+
+              // 春夏のゾーン分け畝（⑦⑧⑩）
+              const zones = season === 'spring' ? ZONED_BEDS[bed.id] : undefined;
+              if (zones) {
+                return (
+                  <ZonedBed
+                    key={bed.id}
+                    bed={bed}
+                    zones={zones}
+                    status={status}
+                    selected={isSelected}
+                    onClick={() => setSelected(bed)}
+                  />
+                );
+              }
 
               if (crops.isSplit) {
                 return (
