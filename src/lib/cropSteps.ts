@@ -183,5 +183,11 @@ export const cropStepsByBed: Record<number, CropStep[]> = {
     { month: '6月下旬', category: 'pest', title: 'アディオン2,000倍散布', detail: 'アワノメイガ対策。雄穂が出始めに。' },
     { month: '7月', category: 'prune', title: 'ヤングコーン除去', detail: '1株1本に。上部の穂を残し下の穂は除去。' },
     { month: '7-8月', category: 'harvest', title: 'とうもろこし収穫', detail: 'ヒゲが茶色くなったら。早朝収穫が甘い。12株分。' },
+    // 南半分: スイカ
+    { month: '5月下旬', category: 'plant', title: 'スイカ定植（南半分）', detail: '1株。南方向にツル展開。行灯設置。' },
+    { month: '6月', category: 'prune', title: 'スイカ整枝', detail: '親づる＋子づる2本の3本仕立て。他の子づるは摘む。' },
+    { month: '6月下旬', category: 'fertilize', title: 'スイカ追肥', detail: '着果確認後、化成肥料。' },
+    { month: '7月', category: 'prune', title: 'スイカ着果制限＋人工授粉', detail: '1株3-4果に制限。朝9時までに人工授粉。' },
+    { month: '8月', category: 'harvest', title: 'スイカ収穫', detail: '巻きひげが枯れたら収穫適期。叩いて鈍い音なら完熟。' },
   ],
 };

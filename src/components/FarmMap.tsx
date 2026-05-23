@@ -58,11 +58,24 @@ interface BedZone {
   flex: number;
 }
 
-// ⑦ トマト＋バジル＋大葉 → 全体が混植（トマト株間にバジル・大葉を植える）
-// ⑧ 枝豆→オクラ→キュウリ→ゴーヤ → 北から順に区画分け
-// ⑩ ズッキーニ+サラダ菜+サンチュ（混植）→ 明日葉（独立区画）
+// ⑤ ナス4種 → 区画分け
+// ⑥ ピーマン+万願寺+パプリカ → 区画分け
+// ⑦ トマト＋バジル＋大葉 → 混植（株間にバジル・大葉）
+// ⑧ 枝豆→オクラ→キュウリ→ゴーヤ → 区画分け
+// ⑩ ズッキーニ→サラダ菜→サンチュ→明日葉 → 区画分け
 
 const ZONED_BEDS: Record<number, BedZone[]> = {
+  5: [
+    { type: 'zone', crops: [{ emoji: '🍆', name: 'ナス' }], bg: '#e8d8f0', flex: 1 },
+    { type: 'zone', crops: [{ emoji: '🍆', name: 'ナス' }], bg: '#e0d0e8', flex: 1 },
+    { type: 'zone', crops: [{ emoji: '🍆', name: 'ナス' }], bg: '#e8d8f0', flex: 1 },
+    { type: 'zone', crops: [{ emoji: '🍆', name: '水ナス' }], bg: '#d8c8e0', flex: 1 },
+  ],
+  6: [
+    { type: 'zone', crops: [{ emoji: '🫑', name: 'ピーマン' }], bg: '#e0f0c8', flex: 1 },
+    { type: 'zone', crops: [{ emoji: '🌶️', name: '万願寺' }], bg: '#f0e8c8', flex: 1 },
+    { type: 'zone', crops: [{ emoji: '🟡', name: 'パプリカ' }], bg: '#f8f0c0', flex: 1 },
+  ],
   7: [
     {
       type: 'mixed',
@@ -82,17 +95,10 @@ const ZONED_BEDS: Record<number, BedZone[]> = {
     { type: 'zone', crops: [{ emoji: '🫘', name: 'ゴーヤ' }], bg: '#cce4f0', flex: 1.5 },
   ],
   10: [
-    {
-      type: 'mixed',
-      crops: [
-        { emoji: '🥒', name: 'ズッキーニ' },
-        { emoji: '🥬', name: 'サラダ菜' },
-        { emoji: '🥬', name: 'サンチュ' },
-      ],
-      bg: '#e5f0d0',
-      flex: 3,
-    },
-    { type: 'zone', crops: [{ emoji: '🌿', name: '明日葉' }], bg: '#c8eac8', flex: 1 },
+    { type: 'zone', crops: [{ emoji: '🥒', name: 'ズッキーニ' }], bg: '#e0f0c8', flex: 2 },
+    { type: 'zone', crops: [{ emoji: '🥬', name: 'サラダ菜' }], bg: '#d8ecc8', flex: 1 },
+    { type: 'zone', crops: [{ emoji: '🥬', name: 'サンチュ' }], bg: '#d0e8c0', flex: 1 },
+    { type: 'zone', crops: [{ emoji: '🌿', name: '明日葉' }], bg: '#c8e4b8', flex: 1 },
   ],
 };
 
