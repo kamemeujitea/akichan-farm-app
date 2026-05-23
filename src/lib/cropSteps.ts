@@ -85,78 +85,69 @@ export const cropStepsByBed: Record<number, CropStep[]> = {
     { month: '8月', category: 'prune', title: 'つる返し（2回目）', detail: '月1回ペースで。' },
     { month: '10月', category: 'harvest', title: 'サツマイモ収穫', detail: '霜が降りる前に。晴天日に掘り上げ、2週間追熟。' },
   ],
-  // ⑤ ナス＋ネギ
+  // ⑤ ナス（4種）
   5: [
     { month: '4月上旬', category: 'soil', title: '元肥すき込み', detail: '鶏糞300g/㎡ + 化成5-5-7 100g/㎡。' },
-    { month: '5月上旬', category: 'plant', title: 'ナス定植＋ネギ添え植え', detail: '10-12株。ネギ10-15本。行灯設置。' },
+    { month: '5月上旬', category: 'plant', title: 'ナス4品種定植', detail: '水ナス含む4品種10-12株。行灯設置。ネギ添え植えなし。' },
     { month: '5月中旬', category: 'prune', title: '行灯撤去', detail: '定植2週間後。' },
     { month: '5月下旬', category: 'thin', title: 'わき芽かき（3本仕立て）', detail: '主枝＋1番花下の2本を残す。他のわき芽は摘む。' },
     { month: '6月', category: 'prune', title: '誘引・支柱立て', detail: '3本仕立ての枝をそれぞれ支柱に固定。' },
     { month: '6月下旬', category: 'fertilize', title: 'N30追肥（1回目）', detail: '1株5-10g。株元にばらまき。' },
-    { month: '7月上旬', category: 'harvest', title: '収穫開始', detail: '1番果は早めに収穫（株の負担軽減）。' },
+    { month: '7月上旬', category: 'harvest', title: '収穫開始', detail: '1番果は早めに収穫（株の負担軽減）。水ナスは浅漬けに。' },
     { month: '7月中旬', category: 'fertilize', title: 'N30追肥（2回目）', detail: '2週間おきに継続。' },
     { month: '7月下旬', category: 'prune', title: '更新剪定', detail: '枝を半分に切り戻し。根切りも。→秋ナスへ。' },
     { month: '8月', category: 'fertilize', title: '更新剪定後の追肥', detail: '切り戻し後に元肥相当を。' },
     { month: '9-10月', category: 'harvest', title: '秋ナス収穫', detail: '更新剪定から約1ヶ月後に再び実がつく。' },
   ],
-  // ⑥ ピーマン＋青唐辛子
+  // ⑥ ピーマン＋万願寺とうがらし＋パプリカ
   6: [
     { month: '4月上旬', category: 'soil', title: '元肥すき込み', detail: 'ナスに準ずる。' },
-    { month: '5月上旬', category: 'plant', title: 'ピーマン＋青唐辛子定植', detail: '10-13株。ネギ5本混植。行灯設置。' },
+    { month: '5月上旬', category: 'plant', title: 'ピーマン＋万願寺とうがらし＋パプリカ定植', detail: '10-13株。ネギ5本混植。行灯設置。' },
     { month: '5月中旬', category: 'prune', title: '行灯撤去＋1番花摘み', detail: '1番花は摘んで株の成長優先。' },
     { month: '5月下旬', category: 'thin', title: 'わき芽整理', detail: '1番花の下のわき芽は摘む。上は放任でOK。' },
     { month: '6月下旬', category: 'fertilize', title: 'N30追肥（1回目）' },
-    { month: '7月', category: 'harvest', title: '収穫開始', detail: '実が6-7cmになったら。こまめに収穫で成り疲れ防止。' },
+    { month: '7月', category: 'harvest', title: '収穫開始', detail: 'ピーマン・万願寺は実が6-7cmで。パプリカは色づくまで待つ。' },
     { month: '7月中旬', category: 'fertilize', title: 'N30追肥（2回目）' },
-    { month: '8-10月', category: 'harvest', title: '収穫最盛期', detail: '2-3日おきに収穫。' },
+    { month: '8-10月', category: 'harvest', title: '収穫最盛期', detail: '2-3日おきに収穫。パプリカは赤・黄に色づいてから。' },
   ],
-  // ⑦ トマト＋バジル
+  // ⑦ トマト＋バジル＋大葉
   7: [
     { month: '4月上旬', category: 'soil', title: '元肥すき込み', detail: '鶏糞200g/㎡ + 化成5-5-7 80g/㎡。' },
-    { month: '5月上旬', category: 'plant', title: 'トマト定植＋バジル混植', detail: '15-20株。行灯設置。雨よけアーチ設置。' },
+    { month: '5月上旬', category: 'plant', title: 'トマト定植＋バジル＋大葉混植', detail: 'トマト12株（大玉4+中玉4+ミニ4）＋バジル6株＋大葉2株。行灯設置。雨よけアーチ設置。' },
     { month: '5月中旬', category: 'prune', title: '行灯撤去＋わき芽かき開始', detail: '主枝1本仕立て。わき芽は5cm以下で摘む。' },
     { month: '5月〜', category: 'prune', title: 'わき芽かき（毎週）', detail: '週1-2回チェック。全てのわき芽を摘む。' },
     { month: '6月', category: 'prune', title: '誘引＋下葉かき', detail: '支柱に紐で8の字結び。実の下の葉は除去。' },
     { month: '6月下旬', category: 'fertilize', title: 'N30追肥（1回目）', detail: '3段目の花が咲いたら。' },
-    { month: '7月', category: 'harvest', title: '収穫開始', detail: '大玉は赤く色づいたら。ミニは房ごとOK。' },
+    { month: '7月', category: 'harvest', title: '収穫開始', detail: '大玉は赤く色づいたら。中玉・ミニは房ごとOK。大葉も随時収穫。' },
     { month: '7月中旬', category: 'fertilize', title: 'N30追肥（2回目）' },
     { month: '7月下旬', category: 'prune', title: '摘心', detail: '6-7段目の花房の上で主枝を切る。' },
-    { month: '7-9月', category: 'harvest', title: '収穫期', detail: '雨よけ下で管理。裂果注意。' },
+    { month: '7-9月', category: 'harvest', title: '収穫期', detail: '雨よけ下で管理。裂果注意。バジル・大葉は随時収穫。' },
   ],
-  // ⑧ 枝豆①②③
+  // ⑧ 枝豆＋オクラ＋ゴーヤ＋キュウリ（混植畝A）
   8: [
-    { month: '5月中旬', category: 'plant', title: '枝豆①直播き', detail: '2条千鳥。べたがけ設置。3-4粒/穴。' },
-    { month: '5月下旬', category: 'thin', title: '枝豆①間引き', detail: '本葉2枚で2本に間引き。' },
-    { month: '6月上旬', category: 'plant', title: '枝豆②播き', detail: '時間差収穫のため2回目。' },
-    { month: '6月中旬', category: 'thin', title: '枝豆②間引き' },
-    { month: '6月中旬', category: 'hill', title: '枝豆①土寄せ', detail: '株元に土を寄せて倒伏防止。' },
-    { month: '6月下旬', category: 'plant', title: '枝豆③播き', detail: '3回目。' },
-    { month: '7月', category: 'hill', title: '枝豆②③土寄せ' },
-    { month: '7月下旬', category: 'harvest', title: '枝豆①収穫', detail: '莢がふっくらしたら。株ごと引き抜き。' },
-    { month: '8月', category: 'harvest', title: '枝豆②収穫' },
-    { month: '9月上旬', category: 'harvest', title: '枝豆③収穫' },
+    { month: '5月中旬', category: 'soil', title: '土づくり＋元肥', detail: '鶏糞少量 + 過リン酸石灰50g/㎡。' },
+    { month: '5月中旬', category: 'plant', title: '枝豆直播き＋ゴーヤ・キュウリ・オクラ定植', detail: '枝豆4株直播き。ゴーヤ2株・キュウリ2株・オクラ2株を定植。' },
+    { month: '5月下旬', category: 'prune', title: 'ネット設置（ゴーヤ・キュウリ用）', detail: 'ゴーヤ・キュウリ用にネットを張る。' },
+    { month: '6月', category: 'thin', title: '枝豆間引き＋各種追肥', detail: '枝豆は本葉2枚で間引き。各作物に追肥。' },
+    { month: '6月', category: 'prune', title: 'ゴーヤ・キュウリ誘引', detail: 'ツルをネットに誘引。' },
+    { month: '7月', category: 'harvest', title: 'オクラ収穫開始', detail: '7-8cmで早穫り。大きくなると硬くなる。' },
+    { month: '7月', category: 'harvest', title: 'キュウリ収穫開始', detail: '20cm前後で収穫。取り遅れ注意。' },
+    { month: '7-8月', category: 'harvest', title: 'ゴーヤ収穫', detail: '25-30cmで収穫。黄色くなる前に。' },
+    { month: '8月', category: 'harvest', title: '枝豆収穫', detail: '莢がふっくらしたら株ごと引き抜き。' },
   ],
-  // ⑨ オクラ
+  // ⑨ ズッキーニ＋葉物＋明日葉（混植畝B）
   9: [
-    { month: '4月上旬', category: 'soil', title: '元肥すき込み', detail: '鶏糞200g/㎡ + 化成5-5-7 80g/㎡。' },
-    { month: '5月下旬', category: 'soil', title: '黒マルチ張り' },
-    { month: '6月上旬', category: 'plant', title: 'オクラ定植', detail: '15-20株。松本は6月まで低温なので急がない。' },
-    { month: '6月下旬', category: 'thin', title: '間引き（1本立て）', detail: '直播きの場合は本葉3枚で1本に。' },
-    { month: '7月', category: 'harvest', title: '収穫開始', detail: '7-8cmで早穫り。大きくなると硬くなる。' },
-    { month: '7月', category: 'prune', title: '下葉かき', detail: '収穫した実の下の葉は除去。風通しUP。' },
-    { month: '7-8月', category: 'fertilize', title: '追肥（2週間おき）', detail: '生育旺盛なので定期的に。' },
-    { month: '7-9月', category: 'harvest', title: '収穫最盛期', detail: '2日おきに収穫。取り遅れ注意。' },
+    { month: '5月上旬', category: 'soil', title: '土づくり', detail: '元肥すき込み。' },
+    { month: '5月上旬', category: 'plant', title: 'ズッキーニ定植', detail: 'ズッキーニ4株。株間80cm。行灯設置。' },
+    { month: '5月中旬', category: 'plant', title: 'サラダ菜・サンチュ・明日葉定植', detail: 'サラダ菜2株・サンチュ2株・明日葉2株。ズッキーニの間に配置。' },
+    { month: '6月', category: 'prune', title: 'ズッキーニ人工授粉開始', detail: '朝に雄花を雌花にこすりつけ。' },
+    { month: '6月', category: 'harvest', title: 'サラダ菜・サンチュ外葉収穫開始', detail: '外葉から収穫で長期間収穫可能。' },
+    { month: '7月', category: 'fertilize', title: 'ズッキーニ追肥', detail: '実が成り始めたら2-3週おきに。' },
+    { month: '6-9月', category: 'harvest', title: '各種収穫', detail: 'ズッキーニは20cm以下で。葉物は外葉から随時。明日葉は若芽を摘む。' },
   ],
-  // ⑩ ズッキーニ
+  // ⑩ 予備畝
   10: [
-    { month: '4月上旬', category: 'soil', title: '元肥すき込み' },
-    { month: '5月上旬', category: 'plant', title: 'ズッキーニ定植', detail: '8-10株。株間80cm。行灯設置。' },
-    { month: '5月中旬', category: 'prune', title: '行灯撤去' },
-    { month: '6月', category: 'prune', title: '人工授粉', detail: '訪問日の朝に雄花を雌花にこすりつけ。' },
-    { month: '6月〜', category: 'harvest', title: '収穫開始', detail: '20cm以下で収穫。大きくなりすぎ注意。' },
-    { month: '7月', category: 'fertilize', title: '追肥', detail: '実が成り始めたら2-3週おきに。' },
-    { month: '7月', category: 'prune', title: '古葉除去', detail: '下葉が枯れたら除去。うどんこ病予防。' },
-    { month: '6-9月', category: 'harvest', title: '収穫期', detail: '2-3日おきにチェック。' },
+    { month: '通年', category: 'soil', title: '予備畝として確保', detail: '追加苗や秋冬用に確保。必要に応じて活用。' },
   ],
   // ⑪ ネギ
   11: [
@@ -180,15 +171,15 @@ export const cropStepsByBed: Record<number, CropStep[]> = {
     { month: '翌4月', category: 'prune', title: 'トウ立ち除去', detail: 'ネギ坊主が出たら早めに摘む。' },
     { month: '翌5-6月', category: 'harvest', title: 'タマネギ収穫', detail: '茎が倒れたら収穫適期。晴天日に抜いて乾燥。' },
   ],
-  // ⑬ とうもろこし
+  // ⑬ とうもろこし（北半分）＋空き（南半分）
   13: [
-    { month: '4月上旬', category: 'soil', title: '元肥すき込み', detail: '鶏糞300g/㎡ + 化成5-5-7 100g/㎡。' },
-    { month: '5月中旬', category: 'plant', title: '直播き', detail: '2条ブロック植え。30株。3粒/穴。' },
+    { month: '4月上旬', category: 'soil', title: '元肥すき込み（北半分）', detail: '鶏糞300g/㎡ + 化成5-5-7 100g/㎡。北半分のみ。' },
+    { month: '5月中旬', category: 'plant', title: '直播き12株（北半分のみ）', detail: '2条ブロック植え。12株。3粒/穴。' },
     { month: '5月下旬', category: 'thin', title: '間引き', detail: '本葉3枚で1本に間引き。' },
     { month: '6月', category: 'hill', title: '土寄せ', detail: '株元にしっかり土寄せ。倒伏防止。' },
     { month: '6月', category: 'fertilize', title: '追肥', detail: '草丈50cmで1回目。穂が出始めで2回目。' },
     { month: '6月下旬', category: 'pest', title: 'アディオン2,000倍散布', detail: 'アワノメイガ対策。雄穂が出始めに。' },
     { month: '7月', category: 'prune', title: 'ヤングコーン除去', detail: '1株1本に。上部の穂を残し下の穂は除去。' },
-    { month: '7-8月', category: 'harvest', title: 'とうもろこし収穫', detail: 'ヒゲが茶色くなったら。早朝収穫が甘い。' },
+    { month: '7-8月', category: 'harvest', title: 'とうもろこし収穫', detail: 'ヒゲが茶色くなったら。早朝収穫が甘い。12株分。' },
   ],
 };
