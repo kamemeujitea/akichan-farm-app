@@ -5,6 +5,7 @@ import type { Bed, BedStatus, CropInfo, Season } from '@/types';
 import { categoryColors } from '@/lib/farmData';
 import { getBedStatuses } from '@/lib/storage';
 import CropTimeline from './CropTimeline';
+import PlantingGuide from './PlantingGuide';
 
 const STATUS_LABELS: Record<BedStatus, { label: string; emoji: string }> = {
   none: { label: '未着手', emoji: '⚪' },
@@ -187,6 +188,16 @@ export default function BedDetail({
           <CropCard info={autumnMain} />
         ) : (
           <FallowCard />
+        )}
+
+        {/* 植え方ガイド（対応畝のみ表示） */}
+        {[7, 8, 10].includes(bed.id) && isSpring && (
+          <div className="mt-4 border-t border-soil/10 pt-3">
+            <h3 className="text-sm font-bold text-soilLight mb-3">
+              🗺️ 植え方ガイド
+            </h3>
+            <PlantingGuide bedId={bed.id} />
+          </div>
         )}
 
         {/* 栽培スケジュール ドリルダウン */}

@@ -135,8 +135,12 @@ export const cropStepsByBed: Record<number, CropStep[]> = {
     { month: '7-8月', category: 'harvest', title: 'ゴーヤ収穫', detail: '25-30cmで収穫。黄色くなる前に。' },
     { month: '8月', category: 'harvest', title: '枝豆収穫', detail: '莢がふっくらしたら株ごと引き抜き。' },
   ],
-  // ⑨ ズッキーニ＋葉物＋明日葉（混植畝B）
+  // ⑨ 予備畝（⑧ウリ科と⑩ズッキーニの緩衝帯）
   9: [
+    { month: '通年', category: 'soil', title: '予備畝として確保', detail: '追加苗や秋冬用に確保。⑧ゴーヤ・キュウリと⑩ズッキーニの間の緩衝帯。必要に応じて活用。' },
+  ],
+  // ⑩ ズッキーニ＋葉物＋明日葉（混植畝B）
+  10: [
     { month: '5月上旬', category: 'soil', title: '土づくり', detail: '元肥すき込み。' },
     { month: '5月上旬', category: 'plant', title: 'ズッキーニ定植', detail: 'ズッキーニ4株。株間80cm。行灯設置。' },
     { month: '5月中旬', category: 'plant', title: 'サラダ菜・サンチュ・明日葉定植', detail: 'サラダ菜2株・サンチュ2株・明日葉2株。ズッキーニの間に配置。' },
@@ -144,10 +148,6 @@ export const cropStepsByBed: Record<number, CropStep[]> = {
     { month: '6月', category: 'harvest', title: 'サラダ菜・サンチュ外葉収穫開始', detail: '外葉から収穫で長期間収穫可能。' },
     { month: '7月', category: 'fertilize', title: 'ズッキーニ追肥', detail: '実が成り始めたら2-3週おきに。' },
     { month: '6-9月', category: 'harvest', title: '各種収穫', detail: 'ズッキーニは20cm以下で。葉物は外葉から随時。明日葉は若芽を摘む。' },
-  ],
-  // ⑩ 予備畝
-  10: [
-    { month: '通年', category: 'soil', title: '予備畝として確保', detail: '追加苗や秋冬用に確保。必要に応じて活用。' },
   ],
   // ⑪ ネギ
   11: [
